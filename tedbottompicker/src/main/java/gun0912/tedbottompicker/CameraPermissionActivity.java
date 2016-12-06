@@ -37,13 +37,18 @@ public class CameraPermissionActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-     RxPermissions.getInstance(this).request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
+        RxPermissions.getInstance(this).request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean _boolean) {
                 if (_boolean) {
                     startCameraIntent();
                 } else {
-                    finishActivityWithError("Error requesting permission");
+
+                    Intent returnIntent = new Intent();
+
+                    setResult(Activity.RESULT_OK, returnIntent);
+
+                    finish();
                 }
             }
         }, new Action1<Throwable>() {

@@ -218,7 +218,12 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
                 if (selectedImageUri != null) {
                     MediaScannerConnection.scanFile(getContext(), new String[]{selectedImageUri.getPath()}, new String[]{"image/jpeg"}, null);
                 } else {
-                    errorMessage(data.getStringExtra(CameraPermissionActivity.ERROR_MESSAGE));
+
+                    String errorMessage = data.getStringExtra(CameraPermissionActivity.ERROR_MESSAGE);
+                    if (!TextUtils.isEmpty(errorMessage)) {
+                        errorMessage(data.getStringExtra(CameraPermissionActivity.ERROR_MESSAGE));
+                    }
+                    return;
                 }
             }
 
