@@ -161,6 +161,10 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
             return;
         }
 
+        if(builder.titleColor > 0) {
+            tv_title.setTextColor(builder.titleColor);
+        }
+
         if(!TextUtils.isEmpty(builder.title)){
             tv_title.setText(builder.title);
         }
@@ -302,6 +306,7 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
         public String title;
         public boolean showTitle=true;
         public int titleBackgroundResId;
+        @ColorRes private int titleColor;
 
         public Builder(@NonNull Context context) {
 
@@ -398,6 +403,11 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
 
         public Builder showTitle(boolean showTitle){
             this.showTitle=showTitle;
+            return this;
+        }
+
+        public Builder setTitleColor(@ColorRes int _colorRes) {
+            titleColor = _colorRes;
             return this;
         }
 
