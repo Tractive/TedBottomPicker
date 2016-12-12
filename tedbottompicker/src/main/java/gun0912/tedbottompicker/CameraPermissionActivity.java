@@ -6,6 +6,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -77,8 +78,14 @@ public class CameraPermissionActivity extends FragmentActivity {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         File imageFile = getImageFile();
-        Uri photoURI = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", imageFile);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri photoURI = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", imageFile);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+        } else {
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+        }
+
         startActivityForResult(cameraIntent, CAMERA_CODE);
     }
 
