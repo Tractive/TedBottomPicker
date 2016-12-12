@@ -71,25 +71,22 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
     }
 
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
-    }
 
     @Override
-    public void onViewCreated(View contentView, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(contentView, savedInstanceState);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+    public void onResume() {
+        super.onResume();
+        if (builder == null) {
+            dismissAllowingStateLoss();
+        }
     }
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
+        if (builder == null) {
+            return;
+        }
+
         View contentView = View.inflate(getContext(), R.layout.tedbottompicker_content_view, null);
         dialog.setContentView(contentView);
         CoordinatorLayout.LayoutParams layoutParams =
