@@ -56,7 +56,7 @@ public class CameraPermissionActivity extends FragmentActivity {
             @Override
             public void call(Throwable _throwable) {
 
-                finishActivityWithError("Error requesting permission");
+                finishActivityWithError(_throwable.getMessage());
             }
         });
     }
@@ -114,7 +114,7 @@ public class CameraPermissionActivity extends FragmentActivity {
         try {
             String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File storageDir = getFilesDir();
             storageDir.mkdirs();
 
             imageFile = File.createTempFile(
