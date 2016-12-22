@@ -51,6 +51,7 @@ public class CameraPermissionActivity extends FragmentActivity {
                 setResult(RESULT_CANCELED);
             }
             finish();
+            return;
         }
 
         RxPermissions.getInstance(this).request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
