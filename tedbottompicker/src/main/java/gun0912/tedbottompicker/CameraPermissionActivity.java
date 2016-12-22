@@ -38,29 +38,26 @@ public class CameraPermissionActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RxPermissions.getInstance(this).request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+
+        rxPermissions.request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean _boolean) {
                 if (_boolean) {
                     startCameraIntent();
                 } else {
-
                     Intent returnIntent = new Intent();
-
                     setResult(Activity.RESULT_OK, returnIntent);
-
                     finish();
                 }
             }
         }, new Action1<Throwable>() {
             @Override
             public void call(Throwable _throwable) {
-
                 finishActivityWithError(_throwable.getMessage());
             }
         });
     }
-
 
     private void finishActivityWithError(String _error) {
         Intent returnIntent = new Intent();
@@ -109,7 +106,7 @@ public class CameraPermissionActivity extends FragmentActivity {
         try {
             String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             storageDir.mkdirs();
 
             imageFile = File.createTempFile(
