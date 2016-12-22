@@ -38,9 +38,22 @@ public class CameraPermissionActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RxPermissions rxPermissions = new RxPermissions(this);
+        if (savedInstanceState != null) {
+            String imagePath = savedInstanceState.getString(CAMERA_URI);
 
-        rxPermissions.request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
+            Intent returnIntent = new Intent();
+
+            if (imagePath != null && new File(imagePath).exists()) {
+                returnIntent.putExtra(CAMERA_URI, cameraImageUri);
+                setResult(Activity.RESULT_OK, returnIntent);
+            } else {
+                setResult(RESULT_CANCELED);
+            }
+            finish();
+            return;
+        }
+
+        RxPermissions.getInstance(this).request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean _boolean) {
                 if (_boolean) {
@@ -57,6 +70,12 @@ public class CameraPermissionActivity extends FragmentActivity {
                 finishActivityWithError(_throwable.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(CAMERA_URI, cameraImageUri.getPath());
+        super.onSaveInstanceState(outState);
     }
 
     private void finishActivityWithError(String _error) {
