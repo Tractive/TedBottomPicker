@@ -74,9 +74,9 @@ public class CameraPermissionActivity extends FragmentActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    public void onSaveInstanceState(Bundle outState) {
         outState.putString(CAMERA_URI, cameraImageUri.getPath());
-        super.onSaveInstanceState(outState, outPersistentState);
+        super.onSaveInstanceState(outState);
     }
 
     private void finishActivityWithError(String _error) {
