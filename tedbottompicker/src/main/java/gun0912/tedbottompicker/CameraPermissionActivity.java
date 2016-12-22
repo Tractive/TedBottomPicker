@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -38,6 +39,21 @@ public class CameraPermissionActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            String imagePath = savedInstanceState.getString(CAMERA_URI);
+
+            Intent returnIntent = new Intent();
+
+            if (imagePath != null && new File(imagePath).exists()) {
+                returnIntent.putExtra(CAMERA_URI, cameraImageUri);
+                setResult(Activity.RESULT_OK, returnIntent);
+            } else {
+                setResult(RESULT_CANCELED);
+            }
+            finish();
+        }
+
+
         RxPermissions rxPermissions = new RxPermissions(this);
 
         rxPermissions.request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
@@ -57,6 +73,12 @@ public class CameraPermissionActivity extends FragmentActivity {
                 finishActivityWithError(_throwable.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        outState.putString(CAMERA_URI, cameraImageUri.getPath());
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     private void finishActivityWithError(String _error) {
