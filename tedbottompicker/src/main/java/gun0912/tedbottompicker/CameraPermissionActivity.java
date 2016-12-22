@@ -53,10 +53,7 @@ public class CameraPermissionActivity extends FragmentActivity {
             finish();
         }
 
-
-        RxPermissions rxPermissions = new RxPermissions(this);
-
-        rxPermissions.request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
+        RxPermissions.getInstance(this).request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean _boolean) {
                 if (_boolean) {
