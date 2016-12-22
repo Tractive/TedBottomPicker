@@ -71,7 +71,6 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -170,7 +169,11 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
 
     private void complete(Uri uri) {
         //uri = Uri.parse(uri.toString());
-        builder.onImageSelectedListener.onImageSelected(uri);
+        if (builder == null || builder.onImageSelectedListener == null) {
+            errorMessage("builder or imageselectedlistener is null");
+        } else {
+            builder.onImageSelectedListener.onImageSelected(uri);
+        }
         dismissAllowingStateLoss();
     }
 
@@ -279,7 +282,8 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
         public String title;
         public boolean showTitle = true;
         public int titleBackgroundResId;
-        @ColorRes private int titleColor;
+        @ColorRes
+        private int titleColor;
 
         public Builder(@NonNull Context context) {
 
