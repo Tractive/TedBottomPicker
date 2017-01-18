@@ -240,6 +240,9 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
     private void errorMessage(String message) {
         String errorMessage = message == null ? "Something wrong." : message;
 
+        if (builder == null) {
+            return;
+        }
         if (builder.onErrorListener == null) {
             Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
         } else {
