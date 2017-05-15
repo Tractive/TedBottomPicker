@@ -24,6 +24,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -316,7 +317,7 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
         }
 
         public Builder setCameraTile(@DrawableRes int cameraTileResId) {
-            setCameraTile(ContextCompat.getDrawable(context, cameraTileResId));
+            setCameraTile(AppCompatResources.getDrawable(context, cameraTileResId));
             return this;
         }
 
@@ -331,7 +332,7 @@ public class TedBottomPicker extends BottomSheetDialogFragment {
         }
 
         public Builder setGalleryTile(@DrawableRes int galleryTileResId) {
-            setGalleryTile(ContextCompat.getDrawable(context, galleryTileResId));
+            setGalleryTile(AppCompatResources.getDrawable(context, galleryTileResId));
             return this;
         }
 

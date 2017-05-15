@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -30,15 +31,16 @@ public class TedSquareImageView extends ImageView {
                 R.styleable.TedBottomPickerImageView,
                 0, 0);
 
-        Drawable foreground = a.getDrawable(R.styleable.TedBottomPickerImageView_foreground);
-        if (foreground != null) {
-            setForeground(foreground);
+        int drawableResId = a.getResourceId(R.styleable.TedBottomPickerImageView_foreground, -1);
+        if (drawableResId != -1) {
+            Drawable foreground = AppCompatResources.getDrawable(context, drawableResId);
+            if (foreground != null) {
+                setForeground(foreground);
+            }
         }
-
 
         try {
             fit_mode = a.getString(R.styleable.TedBottomPickerImageView_fit_mode);
-
         } finally {
             a.recycle();
         }
@@ -50,22 +52,16 @@ public class TedSquareImageView extends ImageView {
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-
         if ("height".equals(fit_mode)) {
             setMeasuredDimension(heightMeasureSpec, heightMeasureSpec);
-
         } else {
             setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
-
         }
-
 
         if (foreground != null) {
             foreground.setBounds(0, 0, getMeasuredWidth(), getMeasuredHeight());
             invalidate();
         }
-
-
     }
 
 
@@ -134,6 +130,4 @@ public class TedSquareImageView extends ImageView {
             foreground.draw(canvas);
         }
     }
-
-
 }
