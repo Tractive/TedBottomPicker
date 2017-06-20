@@ -1,5 +1,7 @@
 package gun0912.tedbottompicker;
 
+import com.tbruyelle.rxpermissions.RxPermissions;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-
-import com.commonsware.cwac.provider.StreamProvider;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,7 +93,7 @@ public class CameraPermissionActivity extends FragmentActivity {
         File imageFile = getImageFile();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri photoURI = StreamProvider.getUriForFile(this.getApplicationContext().getPackageName() + ".provider", imageFile);
+            Uri photoURI = FileProvider.getUriForFile(this.getApplicationContext(), this.getApplicationContext().getPackageName() + ".provider", imageFile);
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
         } else {
             cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
