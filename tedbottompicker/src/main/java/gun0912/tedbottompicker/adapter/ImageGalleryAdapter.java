@@ -95,8 +95,9 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
 
     @Override
     public void onBindViewHolder(final GalleryViewHolder holder, final int position) {
+        final int adapterPosition = holder.getAdapterPosition();
 
-        PickerTile pickerTile = getItem(position);
+        PickerTile pickerTile = getItem(adapterPosition);
 
 
         if (pickerTile.isCameraTile()) {
@@ -133,7 +134,7 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(holder.itemView, position);
+                    onItemClickListener.onItemClick(holder.itemView, adapterPosition);
                 }
             });
         }
