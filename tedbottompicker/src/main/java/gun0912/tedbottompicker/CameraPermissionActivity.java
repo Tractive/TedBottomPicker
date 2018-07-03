@@ -1,6 +1,5 @@
 package gun0912.tedbottompicker;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,13 +13,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -53,9 +54,9 @@ public class CameraPermissionActivity extends FragmentActivity {
             return;
         }
 
-        new RxPermissions(this).request(Manifest.permission.CAMERA).subscribe(new Action1<Boolean>() {
+        new RxPermissions(this).request(Manifest.permission.CAMERA).subscribe(new Consumer<Boolean>() {
             @Override
-            public void call(Boolean _boolean) {
+            public void accept(Boolean _boolean) {
                 if (_boolean) {
                     startCameraIntent();
                 } else {
@@ -64,9 +65,9 @@ public class CameraPermissionActivity extends FragmentActivity {
                     finish();
                 }
             }
-        }, new Action1<Throwable>() {
+        }, new Consumer<Throwable>() {
             @Override
-            public void call(Throwable _throwable) {
+            public void accept(Throwable _throwable) {
                 finishActivityWithError(_throwable.getMessage());
             }
         });
