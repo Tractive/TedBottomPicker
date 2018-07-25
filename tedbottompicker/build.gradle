@@ -63,10 +63,10 @@ dependencies {
 
     api 'com.android.support:support-annotations:27.1.1'
     javadocDeps 'com.android.support:support-annotations:27.1.1'
-    api 'com.github.bumptech.glide:glide:4.4.0'
-    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    api 'com.github.bumptech.glide:glide:4.7.1'
+    api 'com.github.tbruyelle:rxpermissions:0.10.2@aar'
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    api "io.reactivex.rxjava2:rxjava:2.1.16"
+    api "io.reactivex.rxjava2:rxjava:2.1.17"
 }
 
 // Place it at the end of the file
